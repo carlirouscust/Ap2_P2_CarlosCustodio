@@ -35,7 +35,7 @@ import edu.ucne.ap2_p2_carloscustodio.presentation.remote.dto.RepositoryDto
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RepositoryScreen(
+fun ApiScreen(
     state: ApiUiState,
     onSave: (String, String, String) -> Unit,
     onCancel: () -> Unit
@@ -144,8 +144,8 @@ fun RepositoryScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun RepositoryScreenPreview() {
-    RepositoryScreen(
+fun ApiScreenPreview() {
+    ApiScreen(
         state = ApiUiState(),
         onSave = { name, description, htmlUrl -> println("Nuevo repo: $name, $description, $htmlUrl") },
         onCancel = { println("Cancelado") }
