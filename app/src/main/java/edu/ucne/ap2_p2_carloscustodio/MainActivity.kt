@@ -11,20 +11,29 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
+import edu.ucne.ap2_p2_carloscustodio.presentation.ApiEjemplo.ApiViewModel
+import edu.ucne.ap2_p2_carloscustodio.presentation.navigation.ApiNavHost
 import edu.ucne.ap2_p2_carloscustodio.ui.theme.Ap2_P2_CarlosCustodioTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             Ap2_P2_CarlosCustodioTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                val navController = rememberNavController()
+                val ApiViewModel: ApiViewModel = hiltViewModel()
+
+
+                ApiNavHost(
+                    navHostController = navController,
+                    apiViewModel = ApiViewModel,
+
+                )
             }
         }
     }
