@@ -153,7 +153,7 @@ fun RepositoryListScreenPreview() {
         api = sampleRepos
     )
 
-    RepositoryListScreen(
+    ApiListScreen(
         state = state,
         onCreate = { sampleRepos.add(
             RepositoryDto(name = "NuevoRepo", description = "Descripción nueva", htmlUrl = "https://github.com/nuevo")
