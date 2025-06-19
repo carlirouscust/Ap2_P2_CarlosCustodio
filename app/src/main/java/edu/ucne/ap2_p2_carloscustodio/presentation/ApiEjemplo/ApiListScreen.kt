@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.sp
 import edu.ucne.ap2_p2_carloscustodio.presentation.remote.dto.RepositoryDto
 
 @Composable
-fun RepositoryListScreen(
+fun ApiListScreen(
     state: ApiUiState,
     onCreate: () -> Unit,
     onItemClick: (RepositoryDto) -> Unit
