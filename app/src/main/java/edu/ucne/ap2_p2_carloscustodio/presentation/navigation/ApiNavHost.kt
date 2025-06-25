@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import edu.ucne.ap2_p2_carloscustodio.presentation.ApiEjemplo.ApiViewModel
 import edu.ucne.ap2_p2_carloscustodio.presentation.ApiEjemplo.ApiListScreen
 import edu.ucne.ap2_p2_carloscustodio.presentation.ApiEjemplo.ApiScreen
+import edu.ucne.ap2_p2_carloscustodio.presentation.ApiEjemplo.ApiUiState
 import edu.ucne.ap2_p2_carloscustodio.presentation.remote.dto.RepositoryDto
 
 @Composable
@@ -27,19 +28,18 @@ fun ApiNavHost(
         composable("ApiList") {
             val uiState by apiViewModel.uiState.collectAsState()
 
-//            ApiListScreen(
-//                ApiUiState = uiState,
-//                onEdit = { repo ->
-//                    navHostController.navigate("Api/${repo.name}")
-//                },
-//                onCreate = {
-//                    navHostController.navigate("Api/null")
-//                },
-//                onDelete = { repo ->
-//                    apiViewModel.deleteApi(repo.name)
-//                }
-//            )
+            ApiListScreen(
+                state = uiState,
+                onCreate = {
+                    navHostController.navigate("Api/null")
+                },
+                onItemClick = { repo ->
+                    navHostController.navigate("Api/${repo.name}")
+                }
+            )
         }
+
+    }
 
 //        composable("Api/{name}") { backStackEntry ->
 //            val repoNameParam = backStackEntry.arguments?.getString("name")
@@ -62,5 +62,4 @@ fun ApiNavHost(
 //                }
 //            )
 //        }
-    }
 }

@@ -25,7 +25,7 @@ class ApiViewModel @Inject constructor(
 
     fun getApi() {
         viewModelScope.launch {
-            repository.getApi(username = String()).collect { result ->
+            repository.getApi().collect { result ->
                 when (result) {
                     is Resource.Loading -> {
                         _uiState.value = _uiState.value.copy(isLoading = true)

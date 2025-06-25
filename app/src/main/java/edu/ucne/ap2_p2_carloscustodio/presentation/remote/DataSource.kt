@@ -6,6 +6,13 @@ import javax.inject.Inject
 class DataSource @Inject constructor(
     private val api: GitHubApi
 ){
-    suspend fun getApi(username: String): List<RepositoryDto> = api.listRepos(username)
+    suspend fun listRepos(): List<RepositoryDto> {
+        val response = api.listRepos()
+        if(response.isSuccessful) {
+            return response.body() ?: emptyList()
+        } else {
+            throw Exception("Error: ${response.code()} ${response.message()}")
+        }
+    }
 
 }
