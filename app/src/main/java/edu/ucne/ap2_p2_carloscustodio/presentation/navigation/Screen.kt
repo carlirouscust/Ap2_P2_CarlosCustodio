@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 sealed class Screen {
     @Serializable
     data object ApiListScreen : Screen()
+
     @Serializable
-    data class ApiScreen(val name: String?) : Screen()
+    data class ApiListContribuitors(val owner: String, val repoName: String) : Screen()
 }
