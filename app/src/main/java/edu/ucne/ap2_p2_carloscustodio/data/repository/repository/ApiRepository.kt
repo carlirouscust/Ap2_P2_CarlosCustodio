@@ -1,4 +1,4 @@
-package edu.ucne.ap2_p2_carloscustodio.data.local.repository
+package edu.ucne.ap2_p2_carloscustodio.data.repository.repository
 
 import edu.ucne.ap2_p2_carloscustodio.presentation.remote.DataSource
 import edu.ucne.ap2_p2_carloscustodio.presentation.remote.Resource

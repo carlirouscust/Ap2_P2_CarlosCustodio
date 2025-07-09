@@ -3,9 +3,8 @@ package edu.ucne.ap2_p2_carloscustodio.presentation.ApiEjemplo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import edu.ucne.ap2_p2_carloscustodio.data.local.repository.ApiRepository
+import edu.ucne.ap2_p2_carloscustodio.data.repository.repository.ApiRepository
 import edu.ucne.ap2_p2_carloscustodio.presentation.remote.Resource
-import edu.ucne.ap2_p2_carloscustodio.presentation.remote.dto.RepositoryDto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
