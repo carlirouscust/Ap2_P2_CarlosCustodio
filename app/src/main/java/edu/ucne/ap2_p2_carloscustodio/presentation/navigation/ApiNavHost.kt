@@ -1,20 +1,17 @@
 package edu.ucne.ap2_p2_carloscustodio.presentation.navigation
 
-import android.os.Build
-import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import edu.ucne.ap2_p2_carloscustodio.presentation.ApiEjemplo.ApiViewModel
 import edu.ucne.ap2_p2_carloscustodio.presentation.ApiEjemplo.ApiListScreen
-import edu.ucne.ap2_p2_carloscustodio.presentation.ApiEjemplo.ApiScreen
-import edu.ucne.ap2_p2_carloscustodio.presentation.ApiEjemplo.ApiUiState
-import edu.ucne.ap2_p2_carloscustodio.presentation.remote.dto.RepositoryDto
+import edu.ucne.ap2_p2_carloscustodio.presentation.contribuitors.ApiListContribuitors
 
 @Composable
 fun ApiNavHost(
@@ -25,41 +22,40 @@ fun ApiNavHost(
         navController = navHostController,
         startDestination = "ApiList"
     ) {
+        // Pantalla principal de lista de repositorios
         composable("ApiList") {
             val uiState by apiViewModel.uiState.collectAsState()
 
             ApiListScreen(
                 state = uiState,
                 onCreate = {
-                    navHostController.navigate("Api/null")
+                    // Ya no se usa la creación/edición, así que esto se puede dejar vacío o sin acción
                 },
-                onItemClick = { repo ->
-                    navHostController.navigate("Api/${repo.name}")
+                onRepositorySelected = { repo ->
+                    // Extrae owner y repoName del htmlUrl
+                    val segments = repo.htmlUrl.removePrefix("https://github.com/").split("/")
+                    val owner = segments.getOrNull(0) ?: ""
+                    val repoName = segments.getOrNull(1) ?: ""
+                    navHostController.navigate("Contributors/$owner/$repoName")
                 }
             )
         }
 
+        // Pantalla de contribuidores
+        composable(
+            "Contributors/{owner}/{repoName}",
+            arguments = listOf(
+                navArgument("owner") { type = NavType.StringType },
+                navArgument("repoName") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val owner = backStackEntry.arguments?.getString("owner") ?: ""
+            val repoName = backStackEntry.arguments?.getString("repoName") ?: ""
+            ApiListContribuitors(
+                owner = owner,
+                repoName = repoName,
+                onBack = { navHostController.popBackStack() }
+            )
+        }
     }
-
-//        composable("Api/{name}") { backStackEntry ->
-//            val repoNameParam = backStackEntry.arguments?.getString("name")
-//            val isEdit = repoNameParam != "null"
-//            val repository = if (isEdit) apiViewModel.getApiByName(repoNameParam) else null
-//
-//            ApiScreen(
-//                repository = repository,
-//                onSave = { name, description, htmlUrl ->
-//                    val newRepo = RepositoryDto(
-//                        name = name,
-//                        description = description,
-//                        htmlUrl = htmlUrl
-//                    )
-//                    apiViewModel.saveApi(newRepo)
-//                    navHostController.popBackStack()
-//                },
-//                onCancel = {
-//                    navHostController.popBackStack()
-//                }
-//            )
-//        }
 }
