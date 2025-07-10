@@ -47,26 +47,4 @@ class ApiViewModel @Inject constructor(
         }
     }
 
-//    fun saveApi(repositoryDto: RepositoryDto) {
-//        viewModelScope.launch {
-//            val exists = _uiState.value.Api.any { it.name == repositoryDto.name }
-//            if (exists) {
-//                repository.updateApi(repositoryDto)
-//            } else {
-//                repository.createApi(repositoryDto)
-//            }
-//            getApis()
-//        }
-//    }
-
-//    fun deleteApi(name: String) {
-//        viewModelScope.launch {
-//            repository.deleteApi(name)
-//            getApis()
-//        }
-//    }
-
-//    fun getApiByName(name: String?): RepositoryDto? {
-//        return _uiState.value.Api.find { it.name == name }
-//    }
 }
