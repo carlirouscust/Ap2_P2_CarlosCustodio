@@ -59,7 +59,7 @@ fun ApiListScreen(
                 .padding(horizontal = 18.dp, vertical = 18.dp)
         ) {
             Text(
-                text = "Lista de Repositorios",
+                text = "Repositorios de Enel Almonte",
                 style = TextStyle(
                     fontSize = 23.sp,
                     fontWeight = FontWeight.Bold,
