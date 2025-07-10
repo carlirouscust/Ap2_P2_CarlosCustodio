@@ -22,17 +22,14 @@ fun ApiNavHost(
         navController = navHostController,
         startDestination = "ApiList"
     ) {
-        // Pantalla principal de lista de repositorios
         composable("ApiList") {
             val uiState by apiViewModel.uiState.collectAsState()
 
             ApiListScreen(
                 state = uiState,
                 onCreate = {
-                    // Ya no se usa la creación/edición, así que esto se puede dejar vacío o sin acción
                 },
                 onRepositorySelected = { repo ->
-                    // Extrae owner y repoName del htmlUrl
                     val segments = repo.htmlUrl.removePrefix("https://github.com/").split("/")
                     val owner = segments.getOrNull(0) ?: ""
                     val repoName = segments.getOrNull(1) ?: ""
@@ -40,8 +37,6 @@ fun ApiNavHost(
                 }
             )
         }
-
-        // Pantalla de contribuidores
         composable(
             "Contributors/{owner}/{repoName}",
             arguments = listOf(
